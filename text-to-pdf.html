@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات تحويل PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 { color: #1a237e; }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            border: 2px dashed #1a237e;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+        button {
+            background: #1a237e;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover { background: #283593; }
+        #status { margin-top: 20px; font-weight: bold; }
+        #download { display: none; margin-top: 20px; }
+        #preview { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        #preview img { max-width: 100px; border-radius: 8px; border: 1px solid #ddd; }
+        .tool-link {
+            margin-top: 20px;
+            display: block;
+            padding: 10px;
+            background: #e8eaf6;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #1a237e;
+            font-weight: bold;
+        }
+        .tool-link:hover {
+            background: #c5cae9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 تحويل الصور إلى PDF</h1>
+        <p>اختر الصور التي تريد تحويلها إلى ملف PDF واحد</p>
+        <input type="file" id="imageInput" accept="image/*" multiple>
+        <div id="preview"></div>
+        <button onclick="convertToPDF()">🔄 تحويل إلى PDF</button>
+        <div id="status"></div>
+        <a id="download" download="images.pdf">📥 تحميل PDF</a>
+
+        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- رابط الأداة الجديدة -->
+        <a href="text-to-pdf.html" class="tool-link">📝 تحويل النص إلى PDF</a>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            selectedFiles = Array.from(e.target.files);
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            selectedFiles.forEach(file => {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                preview.appendChild(img);
+            });
+        });
+
+        async function convertToPDF() {
+            if (selectedFiles.length === 0) {
+                alert('رجاء اختر صورة واحدة على الأقل.');
+                return;
+            }
+
+            const status = document.getElementById('status');
+            const downloadLink = document.getElementById('download');
+            status.textContent = '⏳ جاري التحويل...';
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                const imgData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+
+                if (i > 0) pdf.addPage();
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            const pdfBlob = pdf.output('blob');
+            const url = URL.createObjectURL(pdfBlob);
+            downloadLink.href = url;
+            downloadLink.style.display = 'inline-block';
+            status.textContent = '✅ تم التحويل بنجاح!';
+        }
+    </script>
+</body>
+</html>

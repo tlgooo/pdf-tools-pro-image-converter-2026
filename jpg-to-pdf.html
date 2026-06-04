@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- تحسين SEO لـ JPG -->
+    <title>تحويل JPG إلى PDF أونلاين مجاناً - حول صور JPG إلى PDF بدون علامة مائية</title>
+    <meta name="description" content="حول صور JPG إلى ملف PDF واحد أونلاين وبالمجان. سريع، آمن، بدون تسجيل. يعمل على الموبايل والكمبيوتر.">
+    <meta name="keywords" content="تحويل jpg إلى pdf, تحويل الصور إلى pdf, jpg to pdf converter">
+    <!-- مكتبة jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- مكتبة html2canvas للنص العربي -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #1a237e; 
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #1a237e;
+            font-size: 18px;
+            margin-top: 30px;
+            border-bottom: 2px solid #1a237e;
+            padding-bottom: 10px;
+        }
+        input[type="file"] {
+            margin: 15px 0;
+            padding: 10px;
+            border: 2px dashed #1a237e;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 2px dashed #1a237e;
+            border-radius: 10px;
+            font-size: 16px;
+            margin: 15px 0;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            background: #1a237e;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover { background: #283593; }
+        #status { margin-top: 20px; font-weight: bold; }
+        #download { display: none; margin-top: 20px; }
+        #preview { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+        #preview img { max-width: 100px; border-radius: 8px; border: 1px solid #ddd; }
+        .section {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .section:last-child {
+            border-bottom: none;
+        }
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+        .trust-badge span {
+            font-size: 20px;
+        }
+        .counter {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e8eaf6;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #1a237e;
+            font-weight: bold;
+        }
+        .share-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            display: none;
+        }
+        .share-section p {
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .share-buttons a {
+            display: inline-block;
+            padding: 8px 15px;
+            background: #1a237e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .share-buttons a:hover {
+            background: #283593;
+        }
+        .ad-section {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 تحويل JPG إلى PDF أونلاين</h1>
+        <p>حول صور JPG إلى ملف PDF واحد مجاناً وسرعة</p>
+        
+        <div class="trust-badges">
+            <div class="trust-badge"><span>🔒</span> 100% آمن وخاص</div>
+            <div class="trust-badge"><span>🚫</span> بدون علامة مائية</div>
+            <div class="trust-badge"><span>📱</span> يعمل على الموبايل</div>
+            <div class="trust-badge"><span>⚡</span> سريع جداً</div>
+        </div>
+        
+        <div class="counter">✅ تم تحويل <strong>+50,000</strong> صورة JPG</div>
+        
+        <div class="section">
+            <h2>🖼️ تحويل صور JPG إلى PDF</h2>
+            <p>اختر صور JPG التي تريد تحويلها إلى ملف PDF واحد</p>
+            <input type="file" id="imageInput" accept="image/*" multiple>
+            <div id="preview"></div>
+            <button onclick="convertImagesToPDF()">🔄 تحويل الصور</button>
+            <div id="statusImages"></div>
+            <a id="downloadImages" download="images.pdf">📥 تحميل PDF</a>
+            
+            <div class="share-section" id="shareSection">
+                <p>🎉 تم التحويل بنجاح! شارك الأداة مع أصدقائك</p>
+                <div class="share-buttons">
+                    <a href="#" id="shareWhatsApp" target="_blank">💬 واتساب</a>
+                    <a href="#" id="shareFacebook" target="_blank">📘 فيسبوك</a>
+                    <a href="#" id="copyLink">📋 نسخ الرابط</a>
+                </div>
+            </div>
+            
+            <div class="ad-section">
+                <script src="https://pl29622560.effectivecpmnetwork.com/94/99/37/949937dd220ac88856dcab05576627ff.js"></script>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // نفس كود الأداة السابق (يعمل كما هو)
+        let selectedFiles = [];
+
+        document.getElementById('imageInput').addEventListener('change', function(e) {
+            selectedFiles = Array.from(e.target.files);
+            const preview = document.getElementById('preview');
+            preview.innerHTML = '';
+            selectedFiles.forEach(file => {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                preview.appendChild(img);
+            });
+        });
+
+        async function convertImagesToPDF() {
+            if (selectedFiles.length === 0) {
+                alert('رجاء اختر صورة JPG واحدة على الأقل.');
+                return;
+            }
+
+            const status = document.getElementById('statusImages');
+            const downloadLink = document.getElementById('downloadImages');
+            const shareSection = document.getElementById('shareSection');
+            status.textContent = '⏳ جاري التحويل...';
+            shareSection.style.display = 'none';
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                const imgData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+
+                if (i > 0) pdf.addPage();
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            const pdfBlob = pdf.output('blob');
+            const url = URL.createObjectURL(pdfBlob);
+            downloadLink.href = url;
+            downloadLink.style.display = 'inline-block';
+            status.textContent = '✅ تم التحويل بنجاح!';
+            
+            shareSection.style.display = 'block';
+            document.getElementById('shareWhatsApp').href = `https://api.whatsapp.com/send?text=أداة مجانية لتحويل صور JPG إلى PDF: https://tlgooo.github.io/image-to-pdf-tool/jpg-to-pdf.html`;
+            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=https://tlgooo.github.io/image-to-pdf-tool/jpg-to-pdf.html`;
+            document.getElementById('copyLink').onclick = function() {
+                navigator.clipboard.writeText('https://tlgooo.github.io/image-to-pdf-tool/jpg-to-pdf.html');
+                alert('تم نسخ الرابط!');
+            };
+        }
+    </script>
+</body>
+</html>
