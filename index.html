@@ -1,166 +1,122 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta name="monetag" content="372f58f2d8e9a36f1554f8bae1e29e96">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="monetag-verification" content="jecxmin1wmaz7ffmtsdqw" />
-    <title>تحويل الصور إلى PDF واستخراج النص أونلاين مجاناً</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src='https://unpkg.com/tesseract.js@5.1.0/dist/tesseract.min.js'></script>
-    <style>
-        :root {
-            --primary: #0d9488;
-            --primary-dark: #0f766e;
-            --primary-light: #ccfbf1;
-            --accent: #f59e0b;
-            --accent-dark: #d97706;
-            --bg: #f0fdf9;
-            --card-bg: #ffffff;
-            --text: #134e4a;
-            --text-muted: #6b7280;
-            --border: #99f6e4;
-            --shadow: rgba(13, 148, 136, 0.15);
-            --success: #10b981;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: var(--bg);
-            background-image:
-                radial-gradient(circle at 20% 20%, rgba(13,148,136,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245,158,11,0.06) 0%, transparent 50%);
-            min-height: 100vh;
-            padding: 20px 16px 40px;
-            color: var(--text);
-        }
-      .container { max-width: 640px; margin: auto; }
-      .header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 28px 24px 24px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 4px 24px var(--shadow);
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-      .header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-      .header h1 { font-size: 24px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px; }
-      .header p { color: var(--text-muted); font-size: 14px; }
-      .trust-badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 14px 0 0; }
-      .trust-badge { background: var(--primary-light); color: var(--primary-dark); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); }
-      .counter {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 11px 20px;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            font-weight: 700;
-            font-size: 14px;
-            text-align: center;
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-      .card {
-            background: var(--card-bg);
-            border-radius: 18px;
-            padding: 24px;
-            box-shadow: 0 4px 24px var(--shadow);
-            border: 1px solid var(--border);
-            margin-bottom: 18px;
-        }
-      .card h2 { font-size: 17px; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-      .card h2.icon { font-size: 20px; }
-      .file-label {
-            display: block;
-            width: 100%;
-            padding: 20px 16px;
-            border: 2px dashed var(--primary);
-            border-radius: 12px;
-            background: var(--primary-light);
-            cursor: pointer;
-            text-align: center;
-            color: var(--primary-dark);
-            font-size: 15px;
-            font-weight: 600;
-            transition: all 0.2s;
-            margin-bottom: 14px;
-        }
-      .file-label:hover { background: #a7f3d0; border-color: var(--primary-dark); }
-      .file-label.file-icon { font-size: 26px; display: block; margin-bottom: 4px; }
-        input[type="file"] { display: none; }
-        #preview { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-        #preview img { width: 75px; height: 75px; object-fit: cover; border-radius: 10px; border: 2px solid var(--border); }
-      .preview-count { font-size: 13px; color: var(--primary-dark); font-weight: 600; margin-bottom: 10px; display: none; }
-      .btn {
-            width: 100%;
-            padding: 13px 20px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 4px 14px var(--shadow);
-        }
-      .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
-      .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-      .status { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; display: none; text-align: center; }
-      .status.loading { background: #fef3c7; color: #92400e; display: block; }
-      .status.success { background: #d1fae5; color: #065f46; display: block; }
-      .status.error { background: #fee2e2; color: #991b1b; display: block; }
-      .download-btn {
-            display: none;
-            width: 100%;
-            margin-top: 10px;
-            padding: 12px 20px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            color: white;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            text-align: center;
-            transition: all 0.25s;
-            box-shadow: 0 4px 14px rgba(245,158,11,0.25);
-            cursor: pointer;
-            border: none;
-        }
-      .download-btn:hover { transform: translateY(-2px); }
-      .progress-wrap { display: none; background: #e6fffb; border-radius: 8px; height: 8px; overflow: hidden; margin-top: 10px; }
-      .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 8px; transition: width 0.3s ease; width: 0%; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-      .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-left: 6px; }
-      .ocr-preview-img { max-width: 100%; max-height: 200px; border-radius: 10px; border: 2px solid var(--border); display: none; margin-bottom: 12px; }
-      .ocr-result-wrap { display: none; margin-top: 14px; }
-      .ocr-result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-      .ocr-result-label { font-size: 13px; font-weight: 700; color: var(--primary-dark); }
-      .copy-btn { background: var(--primary-light); color: var(--primary-dark); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-family: 'Tajawal', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-      .copy-btn:hover { background: #a7f3d0; }
-        #ocrResult { width: 100%; height: 180px; padding: 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'Tajawal', sans-serif; background: #f8fffe; color: var(--text); resize: vertical; direction: rtl; }
-      .copy-msg { display: none; text-align: center; color: var(--success); font-size: 13px; font-weight: 700; margin-top: 6px; }
-      .lang-select-wrap { margin-bottom: 14px; }
-      .lang-select-wrap label { font-size: 13px; font-weight: 700; color: var(--primary-dark); display: block; margin-bottom: 6px; }
-      .lang-select-wrap select { width: 100%; padding: 9px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'Tajawal', sans-serif; color: var(--text); background: #f8fffe; cursor: pointer; }
-      .footer { text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 20px; }
-      .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-        @media (max-width: 480px) {.header h1 { font-size: 20px; }.card { padding: 18px 14px; } }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تحويل الصور إلى PDF</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:tahoma; }
+body { background:#f5f5f5; padding:20px; }
+.container { max-width:500px; margin:auto; background:white; padding:25px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
+h1 { text-align:center; color:#2196F3; margin-bottom:20px; font-size:22px; }
+input[type=file] { width:100%; padding:12px; border:2px dashed #2196F3; border-radius:8px; margin-bottom:15px; cursor:pointer; }
+.btn { width:100%; padding:14px; background:#2196F3; color:white; border:none; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; margin-top:10px; }
+.btn:disabled { background:#ccc; cursor:not-allowed; }
+#preview { margin-top:15px; }
+#preview img { width:80px; height:80px; object-fit:cover; margin:5px; border-radius:5px; border:2px solid #ddd; }
+#status { margin-top:15px; padding:12px; border-radius:8px; text-align:center; font-weight:bold; display:none; }
+.success { background:#d4edda; color:#155724; }
+.error { background:#f8d7da; color:#721c24; }
+</style>
 </head>
 <body>
 <div class="container">
+    <h1>📄 تحويل الصور إلى PDF</h1>
 
-    <div class="header">
-        <h1>📄 أدوات PDF المجانية</h1>
-        <p>تحويل الصور إلى
+    <input type="file" id="images" accept="image/*" multiple>
+
+    <div id="preview"></div>
+
+    <button class="btn" id="convertBtn" onclick="convertToPDF()" disabled>تحويل إلى PDF</button>
+
+    <div id="status"></div>
+</div>
+
+<script>
+const { jsPDF } = window.jspdf;
+let selectedFiles = [];
+
+document.getElementById('images').addEventListener('change', function(e) {
+    selectedFiles = Array.from(e.target.files);
+    const preview = document.getElementById('preview');
+    preview.innerHTML = '';
+
+    if(selectedFiles.length > 0) {
+        document.getElementById('convertBtn').disabled = false;
+        selectedFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = document.createElement('img');
+                img.src = ev.target.result;
+                preview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        });
+    } else {
+        document.getElementById('convertBtn').disabled = true;
+    }
+});
+
+async function convertToPDF() {
+    if(selectedFiles.length === 0) return;
+
+    const btn = document.getElementById('convertBtn');
+    const status = document.getElementById('status');
+
+    btn.disabled = true;
+    btn.textContent = 'جاري التحويل...';
+    status.style.display = 'none';
+
+    try {
+        const pdf = new jsPDF();
+
+        for(let i = 0; i < selectedFiles.length; i++) {
+            const file = selectedFiles[i];
+            const imgData = await readFileAsDataURL(file);
+
+            if(i > 0) pdf.addPage();
+
+            const img = new Image();
+            await new Promise(resolve => {
+                img.onload = resolve;
+                img.src = imgData;
+            });
+
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const ratio = Math.min(pdfWidth/img.width, pdfHeight/img.height);
+            const imgWidth = img.width * ratio;
+            const imgHeight = img.height * ratio;
+            const x = (pdfWidth - imgWidth) / 2;
+            const y = (pdfHeight - imgHeight) / 2;
+
+            pdf.addImage(imgData, 'JPEG', x, y, imgWidth, imgHeight);
+        }
+
+        pdf.save('images-to-pdf.pdf');
+
+        status.className = 'success';
+        status.textContent = '✅ تم التحويل بنجاح! بدأ التحميل...';
+        status.style.display = 'block';
+
+    } catch(err) {
+        status.className = 'error';
+        status.textContent = '❌ حدث خطأ: ' + err.message;
+        status.style.display = 'block';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'تحويل إلى PDF';
+}
+
+function readFileAsDataURL(file) {
+    return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.readAsDataURL(file);
+    });
+}
+</script>
+</body>
+</html>
