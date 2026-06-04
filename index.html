@@ -35,8 +35,8 @@
             padding: 20px 16px 40px;
             color: var(--text);
         }
-        .container { max-width: 640px; margin: auto; }
-        .header {
+       .container { max-width: 640px; margin: auto; }
+       .header {
             text-align: center;
             margin-bottom: 20px;
             padding: 28px 24px 24px;
@@ -47,18 +47,18 @@
             position: relative;
             overflow: hidden;
         }
-        .header::before {
+       .header::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--accent));
         }
-        .header h1 { font-size: 24px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px; }
-        .header p { color: var(--text-muted); font-size: 14px; }
-        .trust-badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 14px 0 0; }
-        .trust-badge { background: var(--primary-light); color: var(--primary-dark); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); }
-        .counter {
+       .header h1 { font-size: 24px; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px; }
+       .header p { color: var(--text-muted); font-size: 14px; }
+       .trust-badges { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 14px 0 0; }
+       .trust-badge { background: var(--primary-light); color: var(--primary-dark); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); }
+       .counter {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 11px 20px;
@@ -69,7 +69,7 @@
             text-align: center;
             box-shadow: 0 4px 12px var(--shadow);
         }
-        .card {
+       .card {
             background: var(--card-bg);
             border-radius: 18px;
             padding: 24px;
@@ -77,9 +77,9 @@
             border: 1px solid var(--border);
             margin-bottom: 18px;
         }
-        .card h2 { font-size: 17px; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-        .card h2 .icon { font-size: 20px; }
-        .file-label {
+       .card h2 { font-size: 17px; font-weight: 800; color: var(--primary-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+       .card h2.icon { font-size: 20px; }
+       .file-label {
             display: block;
             width: 100%;
             padding: 20px 16px;
@@ -94,13 +94,13 @@
             transition: all 0.2s;
             margin-bottom: 14px;
         }
-        .file-label:hover { background: #a7f3d0; border-color: var(--primary-dark); }
-        .file-label .file-icon { font-size: 26px; display: block; margin-bottom: 4px; }
+       .file-label:hover { background: #a7f3d0; border-color: var(--primary-dark); }
+       .file-label.file-icon { font-size: 26px; display: block; margin-bottom: 4px; }
         input[type="file"] { display: none; }
         #preview { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
         #preview img { width: 75px; height: 75px; object-fit: cover; border-radius: 10px; border: 2px solid var(--border); }
-        .preview-count { font-size: 13px; color: var(--primary-dark); font-weight: 600; margin-bottom: 10px; display: none; }
-        .btn {
+       .preview-count { font-size: 13px; color: var(--primary-dark); font-weight: 600; margin-bottom: 10px; display: none; }
+       .btn {
             width: 100%;
             padding: 13px 20px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -114,13 +114,13 @@
             transition: all 0.25s;
             box-shadow: 0 4px 14px var(--shadow);
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .status { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; display: none; text-align: center; }
-        .status.loading { background: #fef3c7; color: #92400e; display: block; }
-        .status.success { background: #d1fae5; color: #065f46; display: block; }
-        .status.error { background: #fee2e2; color: #991b1b; display: block; }
-        .download-btn {
+       .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
+       .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+       .status { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; display: none; text-align: center; }
+       .status.loading { background: #fef3c7; color: #92400e; display: block; }
+       .status.success { background: #d1fae5; color: #065f46; display: block; }
+       .status.error { background: #fee2e2; color: #991b1b; display: block; }
+       .download-btn {
             display: none;
             width: 100%;
             margin-top: 10px;
@@ -137,31 +137,30 @@
             cursor: pointer;
             border: none;
         }
-        .download-btn:hover { transform: translateY(-2px); }
-        .progress-wrap { display: none; background: #e6fffb; border-radius: 8px; height: 8px; overflow: hidden; margin-top: 10px; }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 8px; transition: width 0.3s ease; width: 0%; }
+       .download-btn:hover { transform: translateY(-2px); }
+       .progress-wrap { display: none; background: #e6fffb; border-radius: 8px; height: 8px; overflow: hidden; margin-top: 10px; }
+       .progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 8px; transition: width 0.3s ease; width: 0%; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-left: 6px; }
-        /* OCR specific */
-        .ocr-preview-img { max-width: 100%; max-height: 200px; border-radius: 10px; border: 2px solid var(--border); display: none; margin-bottom: 12px; }
-        .ocr-result-wrap { display: none; margin-top: 14px; }
-        .ocr-result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .ocr-result-label { font-size: 13px; font-weight: 700; color: var(--primary-dark); }
-        .copy-btn { background: var(--primary-light); color: var(--primary-dark); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-family: 'Tajawal', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-        .copy-btn:hover { background: #a7f3d0; }
+       .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-left: 6px; }
+       .ocr-preview-img { max-width: 100%; max-height: 200px; border-radius: 10px; border: 2px solid var(--border); display: none; margin-bottom: 12px; }
+       .ocr-result-wrap { display: none; margin-top: 14px; }
+       .ocr-result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+       .ocr-result-label { font-size: 13px; font-weight: 700; color: var(--primary-dark); }
+       .copy-btn { background: var(--primary-light); color: var(--primary-dark); border: 1px solid var(--border); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-family: 'Tajawal', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+       .copy-btn:hover { background: #a7f3d0; }
         #ocrResult { width: 100%; height: 180px; padding: 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'Tajawal', sans-serif; background: #f8fffe; color: var(--text); resize: vertical; direction: rtl; }
-        .copy-msg { display: none; text-align: center; color: var(--success); font-size: 13px; font-weight: 700; margin-top: 6px; }
-        .lang-select-wrap { margin-bottom: 14px; }
-        .lang-select-wrap label { font-size: 13px; font-weight: 700; color: var(--primary-dark); display: block; margin-bottom: 6px; }
-        .lang-select-wrap select { width: 100%; padding: 9px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'Tajawal', sans-serif; color: var(--text); background: #f8fffe; cursor: pointer; }
-        .footer { text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 20px; }
-        .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
-        @media (max-width: 480px) { .header h1 { font-size: 20px; } .card { padding: 18px 14px; } }
+       .copy-msg { display: none; text-align: center; color: var(--success); font-size: 13px; font-weight: 700; margin-top: 6px; }
+       .lang-select-wrap { margin-bottom: 14px; }
+       .lang-select-wrap label { font-size: 13px; font-weight: 700; color: var(--primary-dark); display: block; margin-bottom: 6px; }
+       .lang-select-wrap select { width: 100%; padding: 9px 12px; border: 2px solid var(--border); border-radius: 10px; font-size: 14px; font-family: 'Tajawal', sans-serif; color: var(--text); background: #f8fffe; cursor: pointer; }
+       .footer { text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 20px; }
+       .footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        @media (max-width: 480px) {.header h1 { font-size: 20px; }.card { padding: 18px 14px; } }
     </style>
 </head>
 <body>
 <div class="container">
- 
+
     <div class="header">
         <h1>📄 أدوات PDF المجانية</h1>
         <p>تحويل الصور إلى PDF واستخراج النص من الصور — بدون تسجيل</p>
@@ -173,9 +172,9 @@
             <span class="trust-badge">🆓 مجاني تماماً</span>
         </div>
     </div>
- 
+
     <div class="counter">✅ تم تحويل أكثر من 50,000 صورة بنجاح!</div>
- 
+
     <!-- CARD 1: IMAGE TO PDF -->
     <div class="card">
         <h2><span class="icon">🖼️</span> تحويل الصور إلى PDF</h2>
@@ -192,12 +191,12 @@
         <div class="status" id="status"></div>
         <button class="download-btn" id="downloadBtn" onclick="triggerDownload()">📥 تحميل ملف PDF</button>
     </div>
- 
+
     <!-- CARD 2: OCR -->
     <div class="card">
         <h2><span class="icon">🔍</span> استخراج النص من الصورة (OCR)</h2>
         <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">ارفع صورة تحتوي على نص عربي أو إنجليزي وسيتم استخراجه تلقائياً</p>
- 
+
         <div class="lang-select-wrap">
             <label for="langSelect">🌐 اختر لغة النص في الصورة:</label>
             <select id="langSelect">
@@ -206,21 +205,21 @@
                 <option value="ara+eng">عربي + إنجليزي</option>
             </select>
         </div>
- 
+
         <label class="file-label" for="ocrInput">
             <span class="file-icon">🖼️</span>
             اضغط هنا لاختيار الصورة
             <small style="display:block;margin-top:4px;font-weight:400;color:#0f766e;">PNG, JPG, WEBP</small>
         </label>
         <input type="file" id="ocrInput" accept="image/*">
- 
+
         <img id="ocrPreviewImg" class="ocr-preview-img" alt="preview">
- 
+
         <button class="btn" id="ocrBtn" onclick="runOCR()">🔍 استخراج النص</button>
- 
+
         <div class="progress-wrap" id="ocrProgressWrap"><div class="progress-bar" id="ocrProgressBar"></div></div>
         <div class="status" id="statusOcr"></div>
- 
+
         <div class="ocr-result-wrap" id="ocrResultWrap">
             <div class="ocr-result-header">
                 <span class="ocr-result-label">📄 النص المستخرج:</span>
@@ -230,31 +229,44 @@
             <div class="copy-msg" id="copyMsg">✅ تم النسخ!</div>
         </div>
     </div>
- 
+
+    <!-- كود البيع في النص -->
+    <div style="text-align:center; padding:30px; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius:18px; margin:18px 0; color:white; box-shadow:0 10px 30px rgba(0,0,0,0.3); border:1px solid #99f6e4">
+      <h2 style="margin:0 0 15px 0; font-size:26px; font-family:'Tajawal', sans-serif; font-weight:800">🔥 امتلك الأداة الجهنمية دي</h2>
+      <p style="font-size:16px; margin:10px 0; font-family:'Tajawal', sans-serif">الكود كامل + شرح التركيب + تعديل الاسم والألوان + دعم فني مدى الحياة</p>
+      <p style="font-size:32px; font-weight:bold; margin:20px 0; color:#FFD700; font-family:'Tajawal', sans-serif">السعر: 100 جنيه بس</p>
+      <p style="font-size:14px; margin:5px 0; font-family:'Tajawal', sans-serif">فودافون كاش <b>01062183539</b> - استلام فوري واتساب</p>
+      <a href="https://wa.me/201282175854?text=السلام+عليكم+عايز+كود+أداة+PDF+كامل"
+         style="display:inline-block; padding:18px 40px; background:#FFD700; color:#000; text-decoration:none; border-radius:12px; font-size:20px; font-weight:bold; margin-top:15px; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:'Tajawal', sans-serif">
+         اشتري الكود دلوقتي 📲
+      </a>
+      <p style="font-size:12px; margin-top:20px; opacity:0.9; font-family:'Tajawal', sans-serif">ارفعها على github.io بتاعك واكسب منها انت كمان 💰</p>
+    </div>
+
     <!-- CARD 3: IMAGE COMPRESS -->
     <div class="card">
         <h2><span class="icon">🗜️</span> ضغط الصور بدون فقدان الجودة</h2>
         <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;">ارفع صورة JPG أو PNG وسيتم تصغير حجمها تلقائياً مع الحفاظ على الجودة</p>
- 
+
         <label class="file-label" for="compressInput">
             <span class="file-icon">🖼️</span>
             اضغط هنا لاختيار الصورة
             <small style="display:block;margin-top:4px;font-weight:400;color:#0f766e;">PNG, JPG, WEBP</small>
         </label>
         <input type="file" id="compressInput" accept="image/*">
- 
+
         <img id="compressPreviewImg" class="ocr-preview-img" alt="preview">
- 
+
         <div class="lang-select-wrap" style="margin-top:10px;">
             <label for="qualityRange">🎚️ جودة الضغط: <span id="qualityVal">80</span>%</label>
             <input type="range" id="qualityRange" min="10" max="95" value="80" style="width:100%;margin-top:6px;accent-color:var(--primary);">
         </div>
- 
+
         <button class="btn" id="compressBtn" onclick="compressImage()" style="margin-top:6px;">🗜️ ضغط الصورة</button>
- 
+
         <div class="progress-wrap" id="compressProgressWrap"><div class="progress-bar" id="compressProgressBar"></div></div>
         <div class="status" id="statusCompress"></div>
- 
+
         <div id="compressResultWrap" style="display:none;margin-top:14px;">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:13px;font-weight:700;color:var(--primary-dark);">
                 <span id="compressSizeInfo"></span>
@@ -263,20 +275,20 @@
             <button class="download-btn" id="compressDownloadBtn" style="display:block;" onclick="downloadCompressed()">📥 تحميل الصورة المضغوطة</button>
         </div>
     </div>
- 
+
     <div class="footer">
         <p>صُنع بـ ❤️</p>
     </div>
- 
+
 </div>
- 
-<script> 
+
+<script>
     // =====================
     // IMAGE → PDF
     // =====================
     let selectedFiles = [];
     let imagePdfBlob = null;
- 
+
     document.getElementById('imageInput').addEventListener('change', function(e) {
         selectedFiles = Array.from(e.target.files);
         const preview = document.getElementById('preview');
@@ -295,21 +307,21 @@
         document.getElementById('downloadBtn').style.display = 'none';
         imagePdfBlob = null;
     });
- 
+
     function setStatus(id, msg, type) {
         const el = document.getElementById(id);
-        el.className = 'status' + (type ? ' ' + type : '');
+        el.className = 'status' + (type? ' + type : '');
         el.textContent = msg;
         if (!type) el.style.display = 'none';
     }
- 
+
     function setProgress(wrapId, barId, pct) {
         const wrap = document.getElementById(wrapId);
         const bar = document.getElementById(barId);
         if (pct === null) { wrap.style.display = 'none'; bar.style.width = '0%'; }
         else { wrap.style.display = 'block'; bar.style.width = pct + '%'; }
     }
- 
+
     function readFileAsDataURL(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -318,7 +330,7 @@
             reader.readAsDataURL(file);
         });
     }
- 
+
     function getImageDimensions(src) {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -327,7 +339,7 @@
             img.src = src;
         });
     }
- 
+
     function triggerDownload() {
         if (!imagePdfBlob) return;
         const url = URL.createObjectURL(imagePdfBlob);
@@ -336,7 +348,7 @@
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 5000);
     }
- 
+
     async function convert() {
         if (selectedFiles.length === 0) { alert('الرجاء اختيار صورة واحدة على الأقل.'); return; }
         const btn = document.getElementById('convertBtn');
@@ -377,12 +389,12 @@
             btn.disabled = false; btn.innerHTML = '🔄 تحويل إلى PDF';
         }
     }
- 
+
     // =====================
     // OCR
     // =====================
     let ocrFile = null;
- 
+
     document.getElementById('ocrInput').addEventListener('change', function(e) {
         ocrFile = e.target.files[0] || null;
         const previewImg = document.getElementById('ocrPreviewImg');
@@ -396,153 +408,8 @@
         document.getElementById('ocrResultWrap').style.display = 'none';
         document.getElementById('ocrResult').value = '';
     });
- 
+
     async function runOCR() {
         if (!ocrFile) { alert('الرجاء اختيار صورة أولاً.'); return; }
         const btn = document.getElementById('ocrBtn');
         const lang = document.getElementById('langSelect').value;
-        btn.disabled = true;
-        btn.innerHTML = 'جاري الاستخراج... <span class="spinner"></span>';
-        setStatus('statusOcr', 'جاري تحليل الصورة واستخراج النص...', 'loading');
-        setProgress('ocrProgressWrap', 'ocrProgressBar', 10);
-        document.getElementById('ocrResultWrap').style.display = 'none';
- 
-        try {
-            const { createWorker } = Tesseract;
-            const worker = await createWorker(lang, 1, {
-                logger: m => {
-                    if (m.status === 'recognizing text') {
-                        setProgress('ocrProgressWrap', 'ocrProgressBar', Math.round(20 + m.progress * 75));
-                    }
-                }
-            });
- 
-            const { data: { text } } = await worker.recognize(ocrFile);
-            await worker.terminate();
- 
-            setProgress('ocrProgressWrap', 'ocrProgressBar', null);
- 
-            if (!text || text.trim() === '') {
-                setStatus('statusOcr', 'لم يتم العثور على نص في الصورة. جرب صورة أوضح.', 'error');
-            } else {
-                setStatus('statusOcr', 'تم استخراج النص بنجاح!', 'success');
-                document.getElementById('ocrResult').value = text.trim();
-                document.getElementById('ocrResultWrap').style.display = 'block';
-            }
-        } catch (err) {
-            setProgress('ocrProgressWrap', 'ocrProgressBar', null);
-            setStatus('statusOcr', 'حدث خطأ: ' + (err.message || 'حاول مرة أخرى.'), 'error');
-            console.error(err);
-        } finally {
-            btn.disabled = false; btn.innerHTML = '🔍 استخراج النص';
-        }
-    }
- 
- 
-    function copyOCR() {
-        const text = document.getElementById('ocrResult').value;
-        if (!text) return;
-        navigator.clipboard.writeText(text).then(() => {
-            const msg = document.getElementById('copyMsg');
-            msg.style.display = 'block';
-            setTimeout(() => { msg.style.display = 'none'; }, 2000);
-        }).catch(() => {
-            document.getElementById('ocrResult').select();
-            document.execCommand('copy');
-        });
-    }
- 
-    // =====================
-    // IMAGE COMPRESS
-    // =====================
-    let compressFile = null;
-    let compressedDataUrl = null;
- 
-    document.getElementById('qualityRange').addEventListener('input', function() {
-        document.getElementById('qualityVal').textContent = this.value;
-    });
- 
-    document.getElementById('compressInput').addEventListener('change', function(e) {
-        compressFile = e.target.files[0] || null;
-        const previewImg = document.getElementById('compressPreviewImg');
-        if (compressFile) {
-            previewImg.src = URL.createObjectURL(compressFile);
-            previewImg.style.display = 'block';
-        } else {
-            previewImg.style.display = 'none';
-        }
-        setStatus('statusCompress', '', '');
-        document.getElementById('compressResultWrap').style.display = 'none';
-        compressedDataUrl = null;
-    });
- 
-    async function compressImage() {
-        if (!compressFile) { alert('الرجاء اختيار صورة أولاً.'); return; }
-        const btn = document.getElementById('compressBtn');
-        btn.disabled = true;
-        btn.innerHTML = 'جاري الضغط... <span class="spinner"></span>';
-        setStatus('statusCompress', 'جاري ضغط الصورة...', 'loading');
-        setProgress('compressProgressWrap', 'compressProgressBar', 30);
-        document.getElementById('compressResultWrap').style.display = 'none';
- 
-        try {
-            const quality = parseInt(document.getElementById('qualityRange').value) / 100;
-            const originalSize = compressFile.size;
- 
-            const dataUrl = await readFileAsDataURL(compressFile);
-            const img = new Image();
-            await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = dataUrl; });
- 
-            setProgress('compressProgressWrap', 'compressProgressBar', 60);
- 
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
- 
-            const mimeType = compressFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
-            compressedDataUrl = canvas.toDataURL(mimeType, quality);
- 
-            setProgress('compressProgressWrap', 'compressProgressBar', 90);
- 
-            // Calculate compressed size
-            const base64 = compressedDataUrl.split(',')[1];
-            const compressedSize = Math.round((base64.length * 3) / 4);
-            const saved = Math.round((1 - compressedSize / originalSize) * 100);
- 
-            setProgress('compressProgressWrap', 'compressProgressBar', null);
- 
-            document.getElementById('compressSizeInfo').textContent =
-                '📦 الحجم الأصلي: ' + formatSize(originalSize) + ' ← بعد الضغط: ' + formatSize(compressedSize) + ' (وفّرت ' + Math.max(saved, 0) + '%)';
- 
-            document.getElementById('compressResultImg').src = compressedDataUrl;
-            document.getElementById('compressResultWrap').style.display = 'block';
-            setStatus('statusCompress', 'تم ضغط الصورة بنجاح!', 'success');
- 
-        } catch (err) {
-            setProgress('compressProgressWrap', 'compressProgressBar', null);
-            setStatus('statusCompress', 'حدث خطأ: ' + (err.message || 'حاول مرة أخرى.'), 'error');
-        } finally {
-            btn.disabled = false; btn.innerHTML = '🗜️ ضغط الصورة';
-        }
-    }
- 
-    function formatSize(bytes) {
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
-    }
- 
-    function downloadCompressed() {
-        if (!compressedDataUrl) return;
-        const ext = compressFile.type === 'image/png' ? 'png' : 'jpg';
-        const a = document.createElement('a');
-        a.href = compressedDataUrl;
-        a.download = 'compressed.' + ext;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    }
-</script>
-</body>
-</html>
-
