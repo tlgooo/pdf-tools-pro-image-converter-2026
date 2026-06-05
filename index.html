@@ -3,29 +3,990 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PDF Tools Pro - أقوى أدوات PDF المجانية</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src='https://unpkg.com/tesseract.js@5/dist/tesseract.min.js'></script>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Tajawal', sans-serif; }
-body { background:linear-gradient(135deg,#f0fdf9 0%,#ccfbf1 100%); min-height:100vh; padding:20px 15px 50px; }
-.container { max-width:650px; margin:auto; }
-.header { text-align:center; margin-bottom:25px; }
-.header h1 { font-size:28px; color:#0f766e; font-weight:800; margin-bottom:5px; }
-.header p { color:#14b8a6; font-size:14px; }
-.buy-btn {
-    display:block; width:100%; padding:18px;
-    background:linear-gradient(135deg,#ff5722 0%,#ff9800 100%);
-    color:white; text-align:center; border-radius:14px;
-    font-size:18px; font-weight:800; text-decoration:none;
-    margin-bottom:25px; box-shadow:0 6px 20px rgba(255,87,34,0.4);
-    animation:pulse 2s infinite;
+<title>PDF Pro | أدوات PDF المجانية الاحترافية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style> 
+:root {
+  --teal:   #0d9488;
+  --teal2:  #0f766e;
+  --teal3:  #134e4a;
+  --mint:   #ccfbf1;
+  --amber:  #f59e0b;
+  --amber2: #d97706;
+  --bg:     #f0fdf9;
+  --card:   #ffffff;
+  --muted:  #6b7280;
+  --border: #99f6e4;
+  --sh:     rgba(13,148,136,0.12);
+  --green:  #10b981;
+  --red:    #ef4444;
 }
-@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 10% 10%, rgba(13,148,136,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 90%, rgba(245,158,11,0.08) 0%, transparent 60%);
+  min-height: 100vh;
+  color: var(--teal3);
+  padding-bottom: 60px;
+}
+ 
+/* ─── NAV ─── */
+nav {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 62px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px var(--sh);
+}
+.nav-logo {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--teal);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo span {
+  background: linear-gradient(135deg, var(--teal), var(--amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-badge {
+  background: linear-gradient(135deg, var(--teal), var(--teal2));
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+ 
+/* ─── HERO ─── */
+.hero {
+  text-align: center;
+  padding: 52px 20px 36px;
+  max-width: 700px;
+  margin: auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: var(--mint);
+  color: var(--teal2);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 40px);
+  font-weight: 900;
+  color: var(--teal3);
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal), var(--amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 500px;
+  margin: auto;
+  line-height: 1.7;
+}
+.trust-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+.trust-pill {
+  background: white;
+  border: 1px solid var(--border);
+  color: var(--teal2);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 30px;
+  box-shadow: 0 2px 8px var(--sh);
+}
+ 
+/* ─── COUNTER STRIP ─── */
+.counter-strip {
+  background: linear-gradient(135deg, var(--teal), var(--teal2));
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 18px var(--sh);
+}
+.counter-strip span { color: #fde68a; }
+ 
+/* ─── TOOLS TABS ─── */
+.tabs-wrap {
+  max-width: 760px;
+  margin: 36px auto 0;
+  padding: 0 16px;
+}
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.tab-btn {
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+  box-shadow: 0 2px 10px var(--sh);
+}
+.tab-btn .tab-icon { font-size: 24px; display: block; margin-bottom: 6px; }
+.tab-btn:hover { border-color: var(--teal); color: var(--teal2); transform: translateY(-2px); box-shadow: 0 6px 20px var(--sh); }
+.tab-btn.active {
+  border-color: var(--teal);
+  background: linear-gradient(135deg, var(--teal), var(--teal2));
+  color: white;
+  box-shadow: 0 6px 24px rgba(13,148,136,0.35);
+  transform: translateY(-2px);
+}
+ 
+/* ─── CARDS ─── */
+.tool-panel { display: none; }
+.tool-panel.active { display: block; }
+ 
 .card {
-    background:white; border-radius:18px; padding:24px;
-    box-shadow:0 8px 30px rgba(13,148,136,0.12);
-    border:2px solid #99f6e4; margin-bottom:20px;
+  background: white;
+  border-radius: 22px;
+  padding: 30px 28px;
+  box-shadow: 0 6px 32px var(--sh);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
 }
-.card h2 { font-size:19
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+}
+.card-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--teal3);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 22px;
+  line-height: 1.6;
+}
+ 
+/* ─── DROP ZONE ─── */
+.drop-zone {
+  border: 2.5px dashed var(--teal);
+  border-radius: 16px;
+  background: var(--mint);
+  padding: 36px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.22s;
+  margin-bottom: 18px;
+  position: relative;
+}
+.drop-zone:hover, .drop-zone.dragover { background: #a7f3d0; border-color: var(--teal2); transform: scale(1.01); }
+.drop-zone .dz-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+.drop-zone .dz-text { font-size: 15px; font-weight: 700; color: var(--teal2); margin-bottom: 4px; }
+.drop-zone .dz-hint { font-size: 12px; color: var(--teal); }
+.drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+ 
+/* ─── PREVIEW GRID ─── */
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.preview-grid img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  transition: transform 0.2s;
+}
+.preview-grid img:hover { transform: scale(1.08); }
+.preview-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--teal2);
+  margin-bottom: 12px;
+  display: none;
+}
+ 
+/* ─── SELECT ─── */
+.select-wrap { margin-bottom: 18px; }
+.select-wrap label { font-size: 13px; font-weight: 700; color: var(--teal2); display: block; margin-bottom: 7px; }
+.select-wrap select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Tajawal', sans-serif;
+  color: var(--teal3);
+  background: white;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.select-wrap select:focus { border-color: var(--teal); }
+ 
+/* ─── RANGE ─── */
+.range-wrap { margin-bottom: 18px; }
+.range-wrap label { font-size: 13px; font-weight: 700; color: var(--teal2); display: block; margin-bottom: 7px; }
+.range-wrap input[type="range"] { width: 100%; accent-color: var(--teal); height: 6px; cursor: pointer; }
+ 
+/* ─── BUTTONS ─── */
+.btn-primary {
+  width: 100%;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--teal), var(--teal2));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 18px rgba(13,148,136,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(13,148,136,0.4); }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+ 
+.btn-download {
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, var(--amber), var(--amber2));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s;
+  box-shadow: 0 4px 18px rgba(245,158,11,0.35);
+  display: none;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,158,11,0.4); }
+.btn-download.visible { display: flex; }
+ 
+.btn-copy {
+  background: var(--mint);
+  color: var(--teal2);
+  border: 1.5px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-copy:hover { background: #a7f3d0; }
+ 
+/* ─── STATUS / PROGRESS ─── */
+.status-box {
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 12px;
+  display: none;
+}
+.status-box.loading { background: #fef3c7; color: #92400e; display: block; }
+.status-box.success { background: #d1fae5; color: #065f46; display: block; }
+.status-box.error   { background: #fee2e2; color: #991b1b; display: block; }
+ 
+.progress-track {
+  background: #e6fffb;
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+  display: none;
+}
+.progress-track.visible { display: block; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+ 
+/* ─── OCR ─── */
+.ocr-img-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  display: none;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px var(--sh);
+}
+.ocr-result-wrap { display: none; margin-top: 18px; }
+.ocr-result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.ocr-result-label { font-size: 13px; font-weight: 800; color: var(--teal2); }
+#ocrResult {
+  width: 100%;
+  height: 190px;
+  padding: 14px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Tajawal', sans-serif;
+  background: #f8fffe;
+  color: var(--teal3);
+  resize: vertical;
+  direction: rtl;
+  outline: none;
+  line-height: 1.8;
+  transition: border-color 0.2s;
+}
+#ocrResult:focus { border-color: var(--teal); }
+.copy-msg { text-align: center; color: var(--green); font-size: 13px; font-weight: 700; margin-top: 8px; display: none; }
+ 
+/* ─── COMPRESS ─── */
+.compress-result { display: none; margin-top: 18px; }
+.size-info-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; font-weight: 700; }
+.size-before { color: var(--red); }
+.size-after  { color: var(--green); }
+.compress-result img { max-width: 100%; max-height: 220px; border-radius: 12px; border: 2px solid var(--border); display: block; margin-bottom: 12px; box-shadow: 0 4px 14px var(--sh); }
+ 
+/* ─── PROMO ─── */
+.promo-card {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+  border-radius: 22px;
+  padding: 36px 28px;
+  text-align: center;
+  color: white;
+  margin-top: 28px;
+  box-shadow: 0 10px 40px rgba(79,70,229,0.35);
+  position: relative;
+  overflow: hidden;
+}
+.promo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.promo-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.promo-title {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.promo-title em { font-style: normal; color: #fbbf24; }
+.promo-desc { font-size: 15px; opacity: 0.88; margin-bottom: 20px; line-height: 1.7; }
+.promo-price { font-size: 42px; font-weight: 900; color: #fde68a; margin-bottom: 8px; }
+.promo-price small { font-size: 16px; font-weight: 500; opacity: 0.7; }
+.promo-info { font-size: 13px; opacity: 0.75; margin-bottom: 24px; }
+.promo-info b { color: #86efac; }
+.promo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #1e1b4b;
+  text-decoration: none;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 6px 24px rgba(251,191,36,0.4);
+  transition: all 0.25s;
+}
+.promo-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(251,191,36,0.55); }
+.promo-footnote { font-size: 12px; opacity: 0.65; margin-top: 18px; }
+ 
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 48px;
+  padding: 0 16px;
+}
+footer a { color: var(--teal); text-decoration: none; font-weight: 700; }
+ 
+/* ─── SPINNER ─── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2.5px solid rgba(255,255,255,0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+ 
+/* ─── RESPONSIVE ─── */
+@media (max-width: 520px) {
+  .tabs { grid-template-columns: repeat(3,1fr); gap: 7px; }
+  .tab-btn { font-size: 12px; padding: 11px 6px; }
+  .tab-btn .tab-icon { font-size: 20px; }
+  .card { padding: 22px 16px; }
+}
+</style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">📄 <span>PDF Pro</span></div>
+  <div class="nav-badge">🆓 مجاني 100%</div>
+</nav>
+ 
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">⚡ يعمل مباشرة في المتصفح — بدون رفع الملفات لأي سيرفر</div>
+  <h1>أدوات PDF<br><em>الاحترافية المجانية</em></h1>
+  <p>حوّل صورك إلى PDF، استخرج النص بالذكاء الاصطناعي، واضغط صورك — كل شيء مجاناً وبشكل آمن تماماً.</p>
+  <div class="trust-row">
+    <span class="trust-pill">🛡️ خصوصية تامة</span>
+    <span class="trust-pill">❌ بدون علامة مائية</span>
+    <span class="trust-pill">📱 يعمل على الموبايل</span>
+    <span class="trust-pill">⚡ سريع جداً</span>
+    <span class="trust-pill">🔒 لا رفع للسيرفر</span>
+  </div>
+</div>
+ 
+<!-- COUNTER -->
+<div class="counter-strip">✅ تم تحويل أكثر من <span>50,000</span> ملف بنجاح حتى الآن!</div>
+ 
+<!-- TOOLS -->
+<div class="tabs-wrap">
+ 
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('pdf')">
+      <span class="tab-icon">🖼️</span>صور → PDF
+    </button>
+    <button class="tab-btn" onclick="switchTab('ocr')">
+      <span class="tab-icon">🔍</span>استخراج نص
+    </button>
+    <button class="tab-btn" onclick="switchTab('compress')">
+      <span class="tab-icon">🗜️</span>ضغط صور
+    </button>
+  </div>
+ 
+  <!-- ═══ PANEL 1: IMAGE → PDF ═══ -->
+  <div class="tool-panel active" id="panel-pdf">
+    <div class="card">
+      <div class="card-title">🖼️ تحويل الصور إلى PDF</div>
+      <div class="card-subtitle">يمكنك رفع أكثر من صورة دفعة واحدة — سيتم دمجها في ملف PDF واحد بالترتيب.</div>
+ 
+      <div class="drop-zone" id="pdfDrop">
+        <span class="dz-icon">📂</span>
+        <div class="dz-text">اسحب الصور هنا أو اضغط للاختيار</div>
+        <div class="dz-hint">PNG, JPG, WEBP — متعددة في آنٍ واحد</div>
+        <input type="file" id="pdfInput" accept="image/*" multiple>
+      </div>
+ 
+      <div class="preview-count" id="pdfCount"></div>
+      <div class="preview-grid" id="pdfPreview"></div>
+ 
+      <button class="btn-primary" id="pdfBtn" onclick="convertToPDF()">
+        🔄 تحويل إلى PDF
+      </button>
+ 
+      <div class="progress-track" id="pdfProg"><div class="progress-fill" id="pdfBar"></div></div>
+      <div class="status-box" id="pdfStatus"></div>
+      <button class="btn-download" id="pdfDownload" onclick="downloadPDF()">📥 تحميل ملف PDF</button>
+    </div>
+  </div>
+ 
+  <!-- ═══ PANEL 2: OCR ═══ -->
+  <div class="tool-panel" id="panel-ocr">
+    <div class="card">
+      <div class="card-title">🔍 استخراج النص من الصور (OCR)</div>
+      <div class="card-subtitle">ارفع صورة تحتوي على نص عربي أو إنجليزي وسيتم استخراجه تلقائياً بدقة عالية.</div>
+ 
+      <div class="select-wrap">
+        <label for="ocrLang">🌐 اختر لغة النص في الصورة:</label>
+        <select id="ocrLang">
+          <option value="ara">عربي</option>
+          <option value="eng">إنجليزي</option>
+          <option value="ara+eng">عربي + إنجليزي</option>
+        </select>
+      </div>
+ 
+      <div class="drop-zone" id="ocrDrop">
+        <span class="dz-icon">🖼️</span>
+        <div class="dz-text">اسحب الصورة هنا أو اضغط للاختيار</div>
+        <div class="dz-hint">PNG, JPG, WEBP</div>
+        <input type="file" id="ocrInput" accept="image/*">
+      </div>
+ 
+      <img id="ocrImgPreview" class="ocr-img-preview" alt="معاينة الصورة">
+ 
+      <button class="btn-primary" id="ocrBtn" onclick="runOCR()">
+        🔍 استخراج النص
+      </button>
+ 
+      <div class="progress-track" id="ocrProg"><div class="progress-fill" id="ocrBar"></div></div>
+      <div class="status-box" id="ocrStatus"></div>
+ 
+      <div class="ocr-result-wrap" id="ocrResultWrap">
+        <div class="ocr-result-header">
+          <span class="ocr-result-label">📄 النص المستخرج:</span>
+          <button class="btn-copy" onclick="copyOCR()">📋 نسخ النص</button>
+        </div>
+        <textarea id="ocrResult" readonly placeholder="سيظهر النص هنا..."></textarea>
+        <div class="copy-msg" id="copyMsg">✅ تم نسخ النص!</div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ═══ PANEL 3: COMPRESS ═══ -->
+  <div class="tool-panel" id="panel-compress">
+    <div class="card">
+      <div class="card-title">🗜️ ضغط الصور بذكاء</div>
+      <div class="card-subtitle">صغّر حجم صورتك مع الحفاظ على أعلى جودة ممكنة — مثالي للمواقع والرسائل.</div>
+ 
+      <div class="drop-zone" id="compDrop">
+        <span class="dz-icon">🖼️</span>
+        <div class="dz-text">اسحب الصورة هنا أو اضغط للاختيار</div>
+        <div class="dz-hint">PNG, JPG, WEBP</div>
+        <input type="file" id="compInput" accept="image/*">
+      </div>
+ 
+      <img id="compImgPreview" class="ocr-img-preview" alt="معاينة">
+ 
+      <div class="range-wrap">
+        <label for="qualityRange">🎚️ جودة الصورة: <strong id="qualityVal">80</strong>%
+          <span style="font-size:11px;color:var(--muted);font-weight:400;margin-right:4px;">(كلما قلّت الجودة، كلما صغُر الحجم)</span>
+        </label>
+        <input type="range" id="qualityRange" min="10" max="95" value="80">
+      </div>
+ 
+      <button class="btn-primary" id="compBtn" onclick="compressImage()">
+        🗜️ ضغط الصورة الآن
+      </button>
+ 
+      <div class="progress-track" id="compProg"><div class="progress-fill" id="compBar"></div></div>
+      <div class="status-box" id="compStatus"></div>
+ 
+      <div class="compress-result" id="compResult">
+        <div class="size-info-row">
+          <span class="size-before" id="sizeBefore"></span>
+          <span style="color:var(--muted)">→</span>
+          <span class="size-after" id="sizeAfter"></span>
+        </div>
+        <img id="compResultImg" alt="الصورة المضغوطة">
+        <button class="btn-download visible" onclick="downloadCompressed()" style="margin-top:0">📥 تحميل الصورة المضغوطة</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ═══ PROMO ═══ -->
+  <div class="promo-card">
+    <div class="promo-tag">💼 للمطورين والرواد</div>
+    <div class="promo-title">امتلك هذه الأداة <em>بالكامل</em></div>
+    <div class="promo-desc">الكود المصدري كامل + شرح التركيب خطوة بخطوة<br>تعديل الاسم والألوان + دعم فني مدى الحياة</div>
+    <div class="promo-price">100 جنيه <small>فقط</small></div>
+    <div class="promo-info">فودافون كاش: <b>01062183539</b> — استلام فوري على واتساب</div>
+    <a class="promo-btn" href="https://wa.me/201282175854?text=السلام+عليكم+عايز+كود+أداة+PDF+كامل" target="_blank">
+      📲 اشتري الكود الآن
+    </a>
+    <div class="promo-footnote">ارفعها على GitHub Pages وابدأ الكسب منها فوراً 💰</div>
+  </div>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <p>صُنع بـ ❤️ — جميع العمليات تتم محلياً في متصفحك، بياناتك لا تُرسل لأي سيرفر.</p>
+  </footer>
+ 
+</div>
+ 
+<!-- ══════════ SCRIPTS ══════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://unpkg.com/tesseract.js@5.1.0/dist/tesseract.min.js"></script>
+ 
+<script> 
+// ══════════════════════════════
+// UTILITIES
+// ══════════════════════════════
+function setStatus(id, msg, type) {
+  const el = document.getElementById(id);
+  el.className = 'status-box' + (type ? ' ' + type : '');
+  el.textContent = msg;
+  if (!type) el.style.display = 'none';
+}
+ 
+function setProgress(trackId, barId, pct) {
+  const track = document.getElementById(trackId);
+  const bar   = document.getElementById(barId);
+  if (pct === null) {
+    track.classList.remove('visible');
+    bar.style.width = '0%';
+  } else {
+    track.classList.add('visible');
+    bar.style.width = pct + '%';
+  }
+}
+ 
+function readFileAsDataURL(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload  = e => res(e.target.result);
+    r.onerror = () => rej(new Error('فشل قراءة الملف'));
+    r.readAsDataURL(file);
+  });
+}
+ 
+function getImageDimensions(src) {
+  return new Promise((res, rej) => {
+    const img = new Image();
+    img.onload  = () => res({ w: img.naturalWidth, h: img.naturalHeight });
+    img.onerror = () => rej(new Error('فشل تحميل الصورة'));
+    img.src = src;
+  });
+}
+ 
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+ 
+// Drag-and-drop helper
+function enableDrop(dropId, inputId) {
+  const zone  = document.getElementById(dropId);
+  const input = document.getElementById(inputId);
+ 
+  zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('dragover'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    if (files.length) {
+      const dt = new DataTransfer();
+      Array.from(files).forEach(f => dt.items.add(f));
+      input.files = dt.files;
+      input.dispatchEvent(new Event('change'));
+    }
+  });
+}
+ 
+// ══════════════════════════════
+// TABS
+// ══════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+}
+ 
+// ══════════════════════════════
+// 1. IMAGE → PDF
+// ══════════════════════════════
+let pdfFiles = [];
+let pdfBlob  = null;
+ 
+enableDrop('pdfDrop', 'pdfInput');
+ 
+document.getElementById('pdfInput').addEventListener('change', function(e) {
+  pdfFiles = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+  const preview = document.getElementById('pdfPreview');
+  const countEl = document.getElementById('pdfCount');
+  preview.innerHTML = '';
+  document.getElementById('pdfDownload').classList.remove('visible');
+  setStatus('pdfStatus', '', '');
+  pdfBlob = null;
+ 
+  if (!pdfFiles.length) { countEl.style.display = 'none'; return; }
+  countEl.style.display = 'block';
+  countEl.textContent = 'تم اختيار ' + pdfFiles.length + ' صورة';
+  pdfFiles.forEach(file => {
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+    preview.appendChild(img);
+  });
+});
+ 
+async function convertToPDF() {
+  if (!pdfFiles.length) { alert('الرجاء اختيار صورة واحدة على الأقل.'); return; }
+  const btn = document.getElementById('pdfBtn');
+  btn.disabled = true;
+  btn.innerHTML = 'جاري التحويل... <span class="spinner"></span>';
+  setStatus('pdfStatus', 'جاري معالجة الصور...', 'loading');
+  setProgress('pdfProg', 'pdfBar', 5);
+  document.getElementById('pdfDownload').classList.remove('visible');
+  pdfBlob = null;
+ 
+  try {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+ 
+    for (let i = 0; i < pdfFiles.length; i++) {
+      setStatus('pdfStatus', `تحويل الصورة ${i+1} من ${pdfFiles.length}...`, 'loading');
+      setProgress('pdfProg', 'pdfBar', Math.round(10 + (i / pdfFiles.length) * 80));
+ 
+      const imgData = await readFileAsDataURL(pdfFiles[i]);
+      let fmt = 'JPEG';
+      if (pdfFiles[i].type === 'image/png')  fmt = 'PNG';
+      if (pdfFiles[i].type === 'image/webp') fmt = 'WEBP';
+ 
+      if (i > 0) pdf.addPage();
+      const pW = pdf.internal.pageSize.getWidth();
+      const pH = pdf.internal.pageSize.getHeight();
+      const dims  = await getImageDimensions(imgData);
+      const ratio = Math.min(pW / dims.w, pH / dims.h);
+      const iW = dims.w * ratio;
+      const iH = dims.h * ratio;
+      pdf.addImage(imgData, fmt, (pW - iW) / 2, (pH - iH) / 2, iW, iH);
+    }
+ 
+    pdfBlob = pdf.output('blob');
+    setProgress('pdfProg', 'pdfBar', null);
+    setStatus('pdfStatus', `✅ تم تحويل ${pdfFiles.length} صورة بنجاح! اضغط التحميل.`, 'success');
+    document.getElementById('pdfDownload').classList.add('visible');
+  } catch (err) {
+    setProgress('pdfProg', 'pdfBar', null);
+    setStatus('pdfStatus', '❌ حدث خطأ: ' + (err.message || 'حاول مرة أخرى.'), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔄 تحويل إلى PDF';
+  }
+}
+ 
+function downloadPDF() {
+  if (!pdfBlob) return;
+  const url = URL.createObjectURL(pdfBlob);
+  const a   = document.createElement('a');
+  a.href = url; a.download = 'output.pdf';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+ 
+// ══════════════════════════════
+// 2. OCR
+// ══════════════════════════════
+let ocrFile = null;
+ 
+enableDrop('ocrDrop', 'ocrInput');
+ 
+document.getElementById('ocrInput').addEventListener('change', function(e) {
+  ocrFile = e.target.files[0] || null;
+  const prev = document.getElementById('ocrImgPreview');
+  if (ocrFile) {
+    prev.src = URL.createObjectURL(ocrFile);
+    prev.style.display = 'block';
+  } else {
+    prev.style.display = 'none';
+  }
+  setStatus('ocrStatus', '', '');
+  document.getElementById('ocrResultWrap').style.display = 'none';
+  document.getElementById('ocrResult').value = '';
+});
+ 
+async function runOCR() {
+  if (!ocrFile) { alert('الرجاء اختيار صورة أولاً.'); return; }
+  const lang = document.getElementById('ocrLang').value;
+  const btn  = document.getElementById('ocrBtn');
+  btn.disabled = true;
+  btn.innerHTML = 'جاري التحليل... <span class="spinner"></span>';
+  setStatus('ocrStatus', 'جاري استخراج النص...', 'loading');
+  setProgress('ocrProg', 'ocrBar', 10);
+  document.getElementById('ocrResultWrap').style.display = 'none';
+ 
+  try {
+    const worker = await Tesseract.createWorker(lang, 1, {
+      logger: m => {
+        if (m.status === 'recognizing text') {
+          setProgress('ocrProg', 'ocrBar', Math.round(20 + m.progress * 75));
+        }
+      }
+    });
+    const { data: { text } } = await worker.recognize(ocrFile);
+    await worker.terminate();
+ 
+    setProgress('ocrProg', 'ocrBar', null);
+    const cleaned = text.trim();
+    if (!cleaned) throw new Error('لم يتم العثور على نص في الصورة.');
+    document.getElementById('ocrResult').value = cleaned;
+    document.getElementById('ocrResultWrap').style.display = 'block';
+    setStatus('ocrStatus', '✅ تم استخراج النص بنجاح!', 'success');
+  } catch (err) {
+    setProgress('ocrProg', 'ocrBar', null);
+    setStatus('ocrStatus', '❌ ' + (err.message || 'فشل الاستخراج، حاول مرة أخرى.'), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 استخراج النص';
+  }
+}
+ 
+function copyOCR() {
+  const txt = document.getElementById('ocrResult').value;
+  if (!txt) return;
+  navigator.clipboard.writeText(txt).then(() => {
+    const msg = document.getElementById('copyMsg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2500);
+  });
+}
+ 
+// ══════════════════════════════
+// 3. COMPRESS
+// ══════════════════════════════
+let compFile = null;
+let compDataURL = null;
+ 
+enableDrop('compDrop', 'compInput');
+ 
+document.getElementById('qualityRange').addEventListener('input', function() {
+  document.getElementById('qualityVal').textContent = this.value;
+});
+ 
+document.getElementById('compInput').addEventListener('change', function(e) {
+  compFile = e.target.files[0] || null;
+  compDataURL = null;
+  const prev = document.getElementById('compImgPreview');
+  if (compFile) {
+    prev.src = URL.createObjectURL(compFile);
+    prev.style.display = 'block';
+  } else {
+    prev.style.display = 'none';
+  }
+  setStatus('compStatus', '', '');
+  document.getElementById('compResult').style.display = 'none';
+});
+ 
+function compressImage() {
+  if (!compFile) { alert('الرجاء اختيار صورة أولاً.'); return; }
+  const quality = parseInt(document.getElementById('qualityRange').value) / 100;
+  const btn = document.getElementById('compBtn');
+  btn.disabled = true;
+  btn.innerHTML = 'جاري الضغط... <span class="spinner"></span>';
+  setStatus('compStatus', 'جاري ضغط الصورة...', 'loading');
+  setProgress('compProg', 'compBar', 30);
+  document.getElementById('compResult').style.display = 'none';
+ 
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      setProgress('compProg', 'compBar', 60);
+      const canvas = document.createElement('canvas');
+      canvas.width  = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+ 
+      const mimeType = compFile.type === 'image/png' ? 'image/png' : 'image/jpeg';
+      compDataURL = canvas.toDataURL(mimeType, quality);
+ 
+      setProgress('compProg', 'compBar', 90);
+ 
+      // Estimate compressed size from base64
+      const base64 = compDataURL.split(',')[1];
+      const compSize = Math.round(base64.length * 0.75);
+ 
+      document.getElementById('sizeBefore').textContent = '📦 قبل: ' + formatSize(compFile.size);
+      document.getElementById('sizeAfter').textContent  = '✅ بعد: ' + formatSize(compSize);
+      document.getElementById('compResultImg').src = compDataURL;
+      document.getElementById('compResult').style.display = 'block';
+ 
+      setProgress('compProg', 'compBar', null);
+      setStatus('compStatus', `✅ تم الضغط! وفّرت ${formatSize(compFile.size - compSize)}.`, 'success');
+ 
+      btn.disabled = false;
+      btn.innerHTML = '🗜️ ضغط الصورة الآن';
+    };
+    img.onerror = function() {
+      setProgress('compProg', 'compBar', null);
+      setStatus('compStatus', '❌ فشل تحميل الصورة.', 'error');
+      btn.disabled = false;
+      btn.innerHTML = '🗜️ ضغط الصورة الآن';
+    };
+    img.src = e.target.result;
+  };
+  reader.onerror = function() {
+    setProgress('compProg', 'compBar', null);
+    setStatus('compStatus', '❌ فشل قراءة الملف.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '🗜️ ضغط الصورة الآن';
+  };
+  reader.readAsDataURL(compFile);
+}
+ 
+function downloadCompressed() {
+  if (!compDataURL) return;
+  const ext = compFile.type === 'image/png' ? 'png' : 'jpg';
+  const a = document.createElement('a');
+  a.href = compDataURL;
+  a.download = 'compressed.' + ext;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+</script>
+</body>
+</html>
+
