@@ -928,9 +928,9 @@ footer a { color: var(--teal); text-decoration: none; font-weight: 700; }
     <div class="promo-desc">الكود المصدري كامل + شرح التركيب خطوة بخطوة<br>تعديل الاسم والألوان + دعم فني مدى الحياة</div>
     <div class="promo-price">100 جنيه <small>فقط</small></div>
     <div class="promo-info">فودافون كاش: <b>01062183539</b> — استلام فوري على واتساب</div>
-    <a class="promo-btn" href="https://wa.me/201282175854?text=السلام+عليكم+عايز+كود+أداة+PDF+كامل" target="_blank">
+    <button class="promo-btn" onclick="window.open('https://wa.me/201282175854?text=السلام+عليكم+عايز+كود+أداة+PDF+كامل','_blank')">
       📲 اشتري الكود الآن
-    </a>
+    </button>
     <div class="promo-footnote">ارفعها على GitHub Pages وابدأ الكسب منها فوراً 💰</div>
   </div>
  
@@ -1233,16 +1233,39 @@ ${platformStr}الأسلوب المطلوب: ${toneStr}
   try {
     setProgress('writerProg', 'writerBar', 45);
  
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': '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', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: sysPrompt,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
+    const API_KEY = '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';
+    const payload = JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      system: sysPrompt,
+      messages: [{ role: 'user', content: userPrompt }]
     });
+ 
+    // Try direct call first
+    let response;
+    try {
+      response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: payload
+      });
+    } catch(e) {
+      // Fallback: use corsproxy.io
+      response = await fetch('https://corsproxy.io/?url=' + encodeURIComponent('https://api.anthropic.com/v1/messages'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': API_KEY,
+          'anthropic-version': '2023-06-01'
+        },
+        body: payload
+      });
+    }
  
     setProgress('writerProg', 'writerBar', 80);
  
