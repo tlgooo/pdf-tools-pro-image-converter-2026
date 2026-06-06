@@ -15,25 +15,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Tajawal',sans-serif;background:var(--bg);background-image:radial-gradient(ellipse 60% 40% at 10% 10%,rgba(13,148,136,0.10) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 90% 90%,rgba(245,158,11,0.08) 0%,transparent 60%);min-height:100vh;color:var(--teal3);padding-bottom:60px;}
  
-/* ── LOCK SCREEN ── */
-#lockScreen{position:fixed;inset:0;background:linear-gradient(135deg,#0f766e 0%,#134e4a 100%);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;}
-.lock-card{background:white;border-radius:28px;padding:40px 32px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.lock-icon{font-size:56px;display:block;margin-bottom:16px;}
-.lock-title{font-size:22px;font-weight:900;color:var(--teal3);margin-bottom:6px;}
-.lock-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;}
-.lock-input-wrap{position:relative;margin-bottom:14px;}
-.lock-input{width:100%;padding:14px 50px 14px 16px;border:2.5px solid var(--border);border-radius:14px;font-size:17px;font-family:'Tajawal',sans-serif;color:var(--teal3);outline:none;text-align:center;letter-spacing:3px;transition:border-color 0.2s;background:#f9fffe;}
-.lock-input:focus{border-color:var(--teal);}
-.lock-input.shake{animation:shake 0.4s ease;}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-.lock-toggle{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:var(--muted);}
-.lock-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;border:none;border-radius:14px;font-size:17px;font-family:'Tajawal',sans-serif;font-weight:800;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(13,148,136,0.4);}
-.lock-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,148,136,0.5);}
-.lock-error{color:var(--red);font-size:13px;font-weight:700;margin-top:10px;min-height:20px;}
-.lock-hint{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;}
-.lock-hint b{color:var(--teal2);}
-.lock-attempts{font-size:12px;color:var(--amber2);font-weight:700;margin-top:8px;min-height:18px;}
- 
 nav{background:white;border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px var(--sh);}
 .nav-logo{font-size:20px;font-weight:900;color:var(--teal);display:flex;align-items:center;gap:8px;}
 .nav-logo span{background:linear-gradient(135deg,var(--teal),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -146,34 +127,16 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
 .spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeIn 0.4s ease forwards;}
-@media(max-width:520px){.tabs{grid-template-columns:repeat(3,1fr);gap:7px;}.tab-btn{font-size:12px;padding:11px 6px;}.tab-btn .tab-icon{font-size:20px;}.card{padding:22px 16px;}.content-types{gap:6px;}.type-chip{font-size:12px;padding:6px 12px;}.lock-card{padding:30px 20px;}}
+@media(max-width:520px){.tabs{grid-template-columns:repeat(3,1fr);gap:7px;}.tab-btn{font-size:12px;padding:11px 6px;}.tab-btn .tab-icon{font-size:20px;}.card{padding:22px 16px;}.content-types{gap:6px;}.type-chip{font-size:12px;padding:6px 12px;}}
 </style>
 </head>
 <body>
  
-<!-- ══════════ LOCK SCREEN ══════════ -->
-<div id="lockScreen">
-  <div class="lock-card">
-    <span class="lock-icon">🔐</span>
-    <div class="lock-title">أداة PDF Pro</div>
     <div class="lock-sub">أدخل كلمة المرور للوصول إلى جميع الأدوات</div>
-    <div class="lock-input-wrap">
-      <input class="lock-input" type="password" id="pwdInput" placeholder="••••••••" maxlength="30"
-             onkeydown="if(event.key==='Enter') checkPassword()">
-      <button class="lock-toggle" id="togglePwd" onclick="togglePwdView()" title="إظهار/إخفاء">👁️</button>
-    </div>
-    <button class="lock-btn" onclick="checkPassword()">🚀 دخول</button>
-    <div class="lock-error" id="lockError"></div>
-    <div class="lock-attempts" id="lockAttempts"></div>
-    <div class="lock-hint">
-      💡 هذه الأداة حصرية — للحصول على كلمة المرور<br>
-      تواصل معنا على واتساب: <b>01282175854</b>
-    </div>
-  </div>
-</div>
+    
  
 <!-- ══════════ MAIN APP ══════════ -->
-<div id="mainApp" style="display:none;">
+<div id="mainApp">
  
 <nav>
   <div class="nav-logo">📄 <span>PDF Pro</span></div>
@@ -358,74 +321,10 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script> 
-// ══════════════════════════════════════════
-// 🔐 نظام كلمة المرور
-// ══════════════════════════════════════════
- 
-// ▼▼▼ غيّر كلمة السر هنا ▼▼▼
-var CORRECT_PASSWORD = 'pdfpro2025';
-// ▲▲▲ غيّر كلمة السر هنا ▲▲▲
  
 // ▼▼▼ ضع مفتاحك هنا بين علامتي التنصيص ▼▼▼
-var AI_KEY = 'ضع_مفتاحك_هنا';
+var AI_KEY = 'YOUR_API_KEY_HERE';
 // ▲▲▲ ضع مفتاحك هنا بين علامتي التنصيص ▲▲▲
- 
-var failCount = 0;
-var lockUntil = 0;
- 
-function checkPassword() {
-  var now = Date.now();
-  if (now < lockUntil) {
-    var secs = Math.ceil((lockUntil - now) / 1000);
-    document.getElementById('lockError').textContent = '⏳ انتظر ' + secs + ' ثانية';
-    return;
-  }
- 
-  var input = document.getElementById('pwdInput').value;
- 
-  if (input === CORRECT_PASSWORD) {
-    // ✅ صح
-    document.getElementById('lockScreen').style.display = 'none';
-    var app = document.getElementById('mainApp');
-    app.style.display = 'block';
-    app.classList.add('fade-in');
-    failCount = 0;
-  } else {
-    // ❌ غلط
-    failCount++;
-    var inp = document.getElementById('pwdInput');
-    inp.classList.add('shake');
-    setTimeout(function() { inp.classList.remove('shake'); }, 400);
-    inp.value = '';
- 
-    if (failCount >= 5) {
-      lockUntil = Date.now() + 30000; // قفل 30 ثانية
-      document.getElementById('lockError').textContent = '🚫 تم تجاوز المحاولات! الانتظار 30 ثانية';
-      document.getElementById('lockAttempts').textContent = '';
-      setTimeout(function() {
-        lockUntil = 0; failCount = 0;
-        document.getElementById('lockError').textContent = '';
-      }, 30000);
-    } else {
-      var remaining = 5 - failCount;
-      document.getElementById('lockError').textContent = '❌ كلمة المرور غير صحيحة';
-      document.getElementById('lockAttempts').textContent = remaining > 0 ? 'تبقّى ' + remaining + ' محاولة' : '';
-    }
-  }
-}
- 
-function togglePwdView() {
-  var inp = document.getElementById('pwdInput');
-  var btn = document.getElementById('togglePwd');
-  if (inp.type === 'password') {
-    inp.type = 'text';
-    btn.textContent = '🙈';
-  } else {
-    inp.type = 'password';
-    btn.textContent = '👁️';
-  }
-}
- 
 // زر واتساب مضبوط عبر onclick مباشرة في الـ HTML
  
 // ══════════════════════════════════════════
