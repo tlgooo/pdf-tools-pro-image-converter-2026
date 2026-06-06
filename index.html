@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF Pro | أدوات PDF المجانية الاحترافية</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-<style>
+<style> 
 :root {
   --teal:#0d9488;--teal2:#0f766e;--teal3:#134e4a;--mint:#ccfbf1;
   --amber:#f59e0b;--amber2:#d97706;--bg:#f0fdf9;--card:#ffffff;
@@ -14,7 +14,26 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Tajawal',sans-serif;background:var(--bg);background-image:radial-gradient(ellipse 60% 40% at 10% 10%,rgba(13,148,136,0.10) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 90% 90%,rgba(245,158,11,0.08) 0%,transparent 60%);min-height:100vh;color:var(--teal3);padding-bottom:60px;}
-
+ 
+/* ── LOCK SCREEN ── */
+#lockScreen{position:fixed;inset:0;background:linear-gradient(135deg,#0f766e 0%,#134e4a 100%);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;}
+.lock-card{background:white;border-radius:28px;padding:40px 32px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.lock-icon{font-size:56px;display:block;margin-bottom:16px;}
+.lock-title{font-size:22px;font-weight:900;color:var(--teal3);margin-bottom:6px;}
+.lock-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;}
+.lock-input-wrap{position:relative;margin-bottom:14px;}
+.lock-input{width:100%;padding:14px 50px 14px 16px;border:2.5px solid var(--border);border-radius:14px;font-size:17px;font-family:'Tajawal',sans-serif;color:var(--teal3);outline:none;text-align:center;letter-spacing:3px;transition:border-color 0.2s;background:#f9fffe;}
+.lock-input:focus{border-color:var(--teal);}
+.lock-input.shake{animation:shake 0.4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.lock-toggle{position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;color:var(--muted);}
+.lock-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;border:none;border-radius:14px;font-size:17px;font-family:'Tajawal',sans-serif;font-weight:800;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 18px rgba(13,148,136,0.4);}
+.lock-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,148,136,0.5);}
+.lock-error{color:var(--red);font-size:13px;font-weight:700;margin-top:10px;min-height:20px;}
+.lock-hint{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.6;}
+.lock-hint b{color:var(--teal2);}
+.lock-attempts{font-size:12px;color:var(--amber2);font-weight:700;margin-top:8px;min-height:18px;}
+ 
 nav{background:white;border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px var(--sh);}
 .nav-logo{font-size:20px;font-weight:900;color:var(--teal);display:flex;align-items:center;gap:8px;}
 .nav-logo span{background:linear-gradient(135deg,var(--teal),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
@@ -127,22 +146,40 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
 .spinner{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .fade-in{animation:fadeIn 0.4s ease forwards;}
-@media(max-width:520px){.tabs{grid-template-columns:repeat(3,1fr);gap:7px;}.tab-btn{font-size:12px;padding:11px 6px;}.tab-btn .tab-icon{font-size:20px;}.card{padding:22px 16px;}.content-types{gap:6px;}.type-chip{font-size:12px;padding:6px 12px;}}
+@media(max-width:520px){.tabs{grid-template-columns:repeat(3,1fr);gap:7px;}.tab-btn{font-size:12px;padding:11px 6px;}.tab-btn .tab-icon{font-size:20px;}.card{padding:22px 16px;}.content-types{gap:6px;}.type-chip{font-size:12px;padding:6px 12px;}.lock-card{padding:30px 20px;}}
 </style>
 </head>
 <body>
-
+ 
+<!-- ══════════ LOCK SCREEN ══════════ -->
+<div id="lockScreen">
+  <div class="lock-card">
+    <span class="lock-icon">🔐</span>
+    <div class="lock-title">أداة PDF Pro</div>
     <div class="lock-sub">أدخل كلمة المرور للوصول إلى جميع الأدوات</div>
-    
-
+    <div class="lock-input-wrap">
+      <input class="lock-input" type="password" id="pwdInput" placeholder="••••••••" maxlength="30"
+             onkeydown="if(event.key==='Enter') checkPassword()">
+      <button class="lock-toggle" id="togglePwd" onclick="togglePwdView()" title="إظهار/إخفاء">👁️</button>
+    </div>
+    <button class="lock-btn" onclick="checkPassword()">🚀 دخول</button>
+    <div class="lock-error" id="lockError"></div>
+    <div class="lock-attempts" id="lockAttempts"></div>
+    <div class="lock-hint">
+      💡 هذه الأداة حصرية — للحصول على كلمة المرور<br>
+      تواصل معنا على واتساب: <b>01282175854</b>
+    </div>
+  </div>
+</div>
+ 
 <!-- ══════════ MAIN APP ══════════ -->
-<div id="mainApp">
-
+<div id="mainApp" style="display:none;">
+ 
 <nav>
   <div class="nav-logo">📄 <span>PDF Pro</span></div>
   <div class="nav-badge">🆓 مجاني 100%</div>
 </nav>
-
+ 
 <div class="hero">
   <div class="hero-badge">⚡ يعمل مباشرة في المتصفح — بدون رفع الملفات لأي سيرفر</div>
   <h1>أدوات PDF<br><em>الاحترافية المجانية</em></h1>
@@ -155,16 +192,16 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
     <span class="trust-pill">🤖 ذكاء اصطناعي</span>
   </div>
 </div>
-
+ 
 <div class="counter-strip">✅ تم تحويل أكثر من <span>50,000</span> ملف بنجاح حتى الآن!</div>
-
+ 
 <div class="tabs-wrap">
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('pdf')"><span class="tab-icon">🖼️</span>صور → PDF</button>
     <button class="tab-btn" onclick="switchTab('writer')"><span class="tab-icon">✍️</span>كاتب AI</button>
     <button class="tab-btn" onclick="switchTab('compress')"><span class="tab-icon">🗜️</span>ضغط صور</button>
   </div>
-
+ 
   <!-- PANEL 1 -->
   <div class="tool-panel active" id="panel-pdf">
     <div class="card">
@@ -184,7 +221,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
       <button class="btn-download" id="pdfDownload" onclick="downloadPDF()">📥 تحميل ملف PDF</button>
     </div>
   </div>
-
+ 
   <!-- PANEL 2 -->
   <div class="tool-panel" id="panel-writer">
     <div class="card">
@@ -267,7 +304,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
       <div class="copy-msg" id="writerCopyMsg">✅ تم نسخ المحتوى!</div>
     </div>
   </div>
-
+ 
   <!-- PANEL 3 -->
   <div class="tool-panel" id="panel-compress">
     <div class="card">
@@ -300,7 +337,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
       </div>
     </div>
   </div>
-
+ 
   <!-- PROMO -->
   <div class="promo-card">
     <div class="promo-tag">💼 للمطورين والرواد</div>
@@ -311,22 +348,86 @@ footer{text-align:center;color:var(--muted);font-size:13px;margin-top:48px;paddi
     <button class="promo-btn" id="waBtn" onclick="var msg=encodeURIComponent('السلام عليكم، عايز كود أداة PDF كامل');window.open('https://wa.me/201282175854?text='+msg,'_blank');">📲 اشتري الكود الآن</button>
     <div class="promo-footnote">ارفعها على GitHub Pages وابدأ الكسب منها فوراً 💰</div>
   </div>
-
+ 
   <footer>
     <p>صُنع بـ ❤️ — جميع العمليات تتم محلياً في متصفحك، بياناتك لا تُرسل لأي سيرفر.</p>
   </footer>
 </div><!-- /mainApp -->
-
+ 
 </div>
-
+ 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-
+<script> 
+// ══════════════════════════════════════════
+// 🔐 نظام كلمة المرور
+// ══════════════════════════════════════════
+ 
+// ▼▼▼ غيّر كلمة السر هنا ▼▼▼
+var CORRECT_PASSWORD = 'pdfpro2025';
+// ▲▲▲ غيّر كلمة السر هنا ▲▲▲
+ 
 // ▼▼▼ ضع مفتاحك هنا بين علامتي التنصيص ▼▼▼
-var AI_KEY = 'YOUR_API_KEY_HERE';
+var AI_KEY = 'ضع_مفتاحك_هنا';
 // ▲▲▲ ضع مفتاحك هنا بين علامتي التنصيص ▲▲▲
+ 
+var failCount = 0;
+var lockUntil = 0;
+ 
+function checkPassword() {
+  var now = Date.now();
+  if (now < lockUntil) {
+    var secs = Math.ceil((lockUntil - now) / 1000);
+    document.getElementById('lockError').textContent = '⏳ انتظر ' + secs + ' ثانية';
+    return;
+  }
+ 
+  var input = document.getElementById('pwdInput').value;
+ 
+  if (input === CORRECT_PASSWORD) {
+    // ✅ صح
+    document.getElementById('lockScreen').style.display = 'none';
+    var app = document.getElementById('mainApp');
+    app.style.display = 'block';
+    app.classList.add('fade-in');
+    failCount = 0;
+  } else {
+    // ❌ غلط
+    failCount++;
+    var inp = document.getElementById('pwdInput');
+    inp.classList.add('shake');
+    setTimeout(function() { inp.classList.remove('shake'); }, 400);
+    inp.value = '';
+ 
+    if (failCount >= 5) {
+      lockUntil = Date.now() + 30000; // قفل 30 ثانية
+      document.getElementById('lockError').textContent = '🚫 تم تجاوز المحاولات! الانتظار 30 ثانية';
+      document.getElementById('lockAttempts').textContent = '';
+      setTimeout(function() {
+        lockUntil = 0; failCount = 0;
+        document.getElementById('lockError').textContent = '';
+      }, 30000);
+    } else {
+      var remaining = 5 - failCount;
+      document.getElementById('lockError').textContent = '❌ كلمة المرور غير صحيحة';
+      document.getElementById('lockAttempts').textContent = remaining > 0 ? 'تبقّى ' + remaining + ' محاولة' : '';
+    }
+  }
+}
+ 
+function togglePwdView() {
+  var inp = document.getElementById('pwdInput');
+  var btn = document.getElementById('togglePwd');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    inp.type = 'password';
+    btn.textContent = '👁️';
+  }
+}
+ 
 // زر واتساب مضبوط عبر onclick مباشرة في الـ HTML
-
+ 
 // ══════════════════════════════════════════
 // UTILS
 // ══════════════════════════════════════════
@@ -336,12 +437,12 @@ function readFileAsDataURL(f){return new Promise(function(res,rej){var r=new Fil
 function getImageDimensions(src){return new Promise(function(res,rej){var i=new Image();i.onload=function(){res({w:i.naturalWidth,h:i.naturalHeight});};i.onerror=function(){rej(new Error('فشل تحميل الصورة'));};i.src=src;});}
 function formatSize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(2)+' MB';}
 function enableDrop(did,iid){var z=document.getElementById(did),inp=document.getElementById(iid);z.addEventListener('dragover',function(e){e.preventDefault();z.classList.add('dragover');});z.addEventListener('dragleave',function(){z.classList.remove('dragover');});z.addEventListener('drop',function(e){e.preventDefault();z.classList.remove('dragover');var files=e.dataTransfer.files;if(files.length){var dt=new DataTransfer();Array.from(files).forEach(function(f){dt.items.add(f);});inp.files=dt.files;inp.dispatchEvent(new Event('change'));}});}
-
+ 
 // ══════════════════════════════════════════
 // TABS
 // ══════════════════════════════════════════
 function switchTab(n){document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});document.querySelectorAll('.tool-panel').forEach(function(p){p.classList.remove('active');});document.querySelector('[onclick="switchTab(\''+n+'\')"]').classList.add('active');document.getElementById('panel-'+n).classList.add('active');}
-
+ 
 // ══════════════════════════════════════════
 // 1. IMAGE → PDF
 // ══════════════════════════════════════════
@@ -380,7 +481,7 @@ async function convertToPDF(){
   finally{btn.disabled=false;btn.innerHTML='🔄 تحويل إلى PDF';}
 }
 function downloadPDF(){if(!pdfBlob)return;var url=URL.createObjectURL(pdfBlob),a=document.createElement('a');a.href=url;a.download='output.pdf';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url);},5000);}
-
+ 
 // ══════════════════════════════════════════
 // 2. AI WRITER
 // ══════════════════════════════════════════
@@ -393,7 +494,7 @@ document.getElementById('writerDetails').addEventListener('input',function(){var
 var tLabels={social:'بوست سوشال ميديا',article:'مقال متكامل',marketing:'عرض تسويقي',story:'ستوري إعلاني',email:'إيميل تسويقي',caption:'كابشن للصورة'};
 var toneMap={engaging:'جذاب ومثير للاهتمام، يدفع القارئ لمتابعة القراءة والتفاعل',professional:'احترافي وموثوق، يُظهر الخبرة والمصداقية',funny:'فكاهي وخفيف الظل، يحتوي على نكتة أو تورية طريفة',emotional:'عاطفي ومؤثر، يلمس المشاعر ويخلق ارتباطاً إنسانياً',urgent:'عاجل ومحفّز للاتخاذ فوري لقرار الشراء أو التواصل',educational:'تثقيفي وتوعوي، يشرح ويعلّم بأسلوب سهل ومبسّط'};
 var langMap={arabic:'عربي فصحى سلس',egyptian:'عامية مصرية محببة',gulf:'عامية خليجية أصيلة',english:'English',mixed:'خليط عربي وإنجليزي (Arabizi style)'};
-
+ 
 async function generateContent(){
   if(!AI_KEY){
     var k=prompt('🔑 أدخل مفتاح Anthropic API الخاص بك:');
@@ -414,7 +515,7 @@ async function generateContent(){
   setProgress('writerProg','writerBar',20);
   var rw=document.getElementById('writerResult'),out=document.getElementById('writerOutput');
   rw.style.display='none';out.textContent='';
-
+ 
   var typeStr=tLabels[selType]||selType;
   var toneStr=toneMap[selTone]||selTone;
   var langStr=langMap[lang]||lang;
@@ -424,7 +525,7 @@ async function generateContent(){
   var wordLen=selType==='article'?'مقال كامل من 400-600 كلمة':selType==='email'?'250-350 كلمة':'80-150 كلمة';
   var sysP='أنت كاتب محتوى تسويقي عربي محترف ومبدع.\nقواعد:\n- اكتب بـ '+langStr+' فقط.\n- '+emoStr+'\n- '+hashStr+'\n- ابدأ مباشرة بالمحتوى بدون عناوين.\n- لا تضف ملاحظات خارج المحتوى.';
   var userP='اكتب '+typeStr+' عن: "'+topic+'"\n'+(details?'تفاصيل: '+details+'\n':'')+platStr+'الأسلوب: '+toneStr+'\nالطول: '+wordLen;
-
+ 
   try{
     setProgress('writerProg','writerBar',40);
     var payload=JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sysP,messages:[{role:'user',content:userP}]});
@@ -458,9 +559,9 @@ async function generateContent(){
     setStatus('writerStatus',err.message||'حدث خطأ. حاول مرة أخرى.','error');
   }finally{btn.disabled=false;btn.innerHTML='🤖 اكتب المحتوى الآن';}
 }
-
+ 
 function copyContent(){var txt=document.getElementById('writerOutput').textContent;if(!txt)return;navigator.clipboard.writeText(txt).then(function(){var m=document.getElementById('writerCopyMsg');m.style.display='block';setTimeout(function(){m.style.display='none';},2500);});}
-
+ 
 // ══════════════════════════════════════════
 // 3. COMPRESS
 // ══════════════════════════════════════════
@@ -500,3 +601,4 @@ function downloadCompressed(){if(!compDataURL)return;var a=document.createElemen
 </script>
 </body>
 </html>
+
